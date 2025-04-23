@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Guess the 80s Song 🎧</title>
+  <style>
+    body {
+      background-color: #111;
+      color: #fff;
+      font-family: 'Courier New', monospace;
+      text-align: center;
+      padding: 2rem;
+    }
+    h1 {
+      color: #00ffff;
+    }
+    .lyric-box {
+      border: 2px dashed #ff00ff;
+      padding: 1rem;
+      margin: 2rem auto;
+      width: 80%;
+      font-size: 1.2rem;
+      background-color: #222;
+    }
+    input, button {
+      padding: 0.6rem;
+      font-size: 1rem;
+      margin: 0.5rem;
+    }
+    .result {
+      font-weight: bold;
+      margin-top: 1rem;
+    }
+  </style>
+</head>
+<body>
+  <h1>🎵 Guess the 80s Artist</h1>
+  <p class="lyric-box" id="lyric">Press "Next Lyric" to begin!</p>
+
+  <input type="text" id="guessInput" placeholder="Who sang this?" />
+  <button onclick="checkAnswer()">Submit</button>
+  <button onclick="nextLyric()">Next Lyric</button>
+
+  <p class="result" id="resultText"></p>
+
+  <script>
+    const lyrics = [
+      { lyric: "Just a small town girl, living in a lonely world", artist: "Journey" },
+      { lyric: "Billie Jean is not my lover", artist: "Michael Jackson" },
+      { lyric: "Sweet dreams are made of this", artist: "Eurythmics" },
+      { lyric: "Wake me up before you go-go", artist: "Wham" },
+      { lyric: "Like a virgin, touched for the very first time", artist: "Madonna" },
+      { lyric: "Pour some sugar on me", artist: "Def Leppard" },
+      { lyric: "Take on me (take on me), take me on", artist: "A-ha" }
+    ];
+
+    let currentLyric = {};
+
+    function nextLyric() {
+      const randomIndex = Math.floor(Math.random() * lyrics.length);
+      currentLyric = lyrics[randomIndex];
+      document.getElementById("lyric").textContent = `"${currentLyric.lyric}"`;
+      document.getElementById("guessInput").value = "";
+      document.getElementById("resultText").textContent = "";
+    }
+
+    function checkAnswer() {
+      const userGuess = document.getElementById("guessInput").value.trim().toLowerCase();
+      const correctAnswer = currentLyric.artist.toLowerCase();
+
+      if (userGuess === correctAnswer) {
+        document.getElementById("resultText").textContent = "✅ Correct! You're a true 80s fan!";
+        document.getElementById("resultText").style.color = "#00ff00";
+      } else {
+        document.getElementById("resultText").textContent = "❌ Nope! Try again!";
+        document.getElementById("resultText").style.color = "#ff4444";
+      }
+    }
+  </script>
+</body>
+</html>
